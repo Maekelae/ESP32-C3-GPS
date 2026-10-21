@@ -60,20 +60,42 @@ degrees clockwise from north.
 
 ## Python tools
 
-Install the Python dependencies:
+After building and uploading the firmware, open the PlatformIO serial monitor
+at 115200 baud to check the GPS output. Before starting a Python tool, stop and
+close the serial monitor so it releases the ESP32's COM port.
+
+Open a new VS Code terminal in the project folder. In PowerShell, activate the
+project's virtual environment:
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+
+If the project does not have a virtual environment yet, create it first:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+
+Install the Python dependencies in the activated environment (normally only
+needed once):
 
 ```powershell
 python -m pip install -r requirements.txt
 ```
 
-The dependencies include the Qt GUI backend needed to display the live plot.
+The `(.venv)` prefix in the terminal prompt indicates that the environment is
+active. The dependencies include the Qt GUI backend needed to display the live
+plot.
 
-Replace `COM5` with the serial port assigned to the XIAO:
+Replace `COM5` with the serial port assigned to the XIAO, then run one of these
+commands from the project folder:
 
 ```powershell
-python tools\read_telemetry.py --port COM5
-python tools\plot_3d.py --port COM5
-python tools\plot_2d_map.py --port COM5
+python .\tools\read_telemetry.py --port COM5
+python .\tools\plot_3d.py --port COM5
+python .\tools\plot_2d_map.py --port COM5
 ```
 
 Only one program can own the serial port at a time. The plot uses local
